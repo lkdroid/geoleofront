@@ -1,30 +1,6 @@
 <template>
-
-  <div>
-
-    <h1>GEOLEO LIPUKAARDID</h1>
-
-    <input placeholder="Enter first name please" v-model="client.firstName"/>
-
+  <div class="about">
+    <h1>This is an about page</h1>
   </div>
-
-
 </template>
 
-
-
-<script>
-export default {
-  data: function() {
-    return {
-    country:''
-    }
-  }
-  name: "Register.vue"
-
-}
-</script>
-
-<style scoped>
-
-</style>

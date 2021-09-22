@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Register from '../views/Register.vue'
+import CardsUI from '../views/CardsUI.vue'
 
 
 Vue.use(VueRouter)
@@ -22,10 +21,11 @@ const routes = [
     //         return import(/* webpackChunkName: "about" */ '../views/About.vue')
     //     }
     // },
+
     {
-        path: '/register',
-        name: 'Register',
-        component: Register
+        path: '/',
+        name: 'CardsUI',
+        component: CardsUI
     }
 ]
 
