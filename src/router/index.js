@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CardsUI from '../views/CardsUI.vue'
+import GeoheeGame from '../views/GeoheeGame.vue'
+
 
 
 Vue.use(VueRouter)
@@ -26,6 +28,11 @@ const routes = [
         path: '/',
         name: 'CardsUI',
         component: CardsUI
+    },
+    {
+        path: "/game",
+        name: "GeoheeGame",
+        component: GeoheeGame
     }
 ]
 
