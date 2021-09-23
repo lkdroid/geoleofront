@@ -9,27 +9,30 @@
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/fonts.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
+
     <title>Game</title>
   </head>
 
   <header>
     <div class="header">
-      <div class="activePlayerWrapper" id="activePlayerWrapper">
-        <p class="activePlayer" id="activePlayer">Ronaldo</p>
-        <p class="activePlayerId" id="activePlayerId">(84954)</p>
+      <div class="headerData">
+        <div class="activePlayerWrapper" id="activePlayerWrapper">
+          <p class="activePlayer" id="activePlayer">Ronaldo</p>
+          <p class="activePlayerId" id="activePlayerId">(84954)</p>
+        </div>
+        <div class="gameId" id="gameId">
+          <p class="geoheeIdText" id="geoheeIdText">Geohee Game ID:</p>
+          <p class="idNumber" id="idNumber">32465</p>
+        </div>
+        <p class="opponentPlayer" id="opponentPlayer">Messi</p>
       </div>
-      <div class="gameId" id="gameId">
-        <p class="geoheeIdText" id="geoheeIdText">Geohee Game ID:</p>
-        <p class="idNumber" id="idNumber">32465</p>
-      </div>
-      <p class="opponentPlayer" id="opponentPlayer">Messi</p>
+
     </div>
-    <hr class="headerHr">
   </header>
 
   <body>
   <div class="container">
-    <div class="card">
+    <div class="card" id="mainGamersCard">
       <div class="cardsInnerBorder">
         <div class="cardsTopText">
           <p class="water">vesi</p>
@@ -37,13 +40,16 @@
           <p class="height">kõrgus</p>
           <a class="heightNr" id="heightNr" href="#">1884</a>
         </div>
-        <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="ards flag"></a>
+        <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="cards flag"></a>
         <hr class="cardHr">
         <div class="country">
           <a class="countryLink" id="country" href="#">Ameerika Ühendriigid</a>
         </div>
         <div class="capital">
           <a class="capitalLink" id="capital" href="#">Kabul Karakabul</a>
+        </div>
+        <div class="mapsPic">
+          <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
         </div>
         <div class="countryData">
           <p class="population">Rahvaarv</p>
@@ -65,28 +71,26 @@
             <p class="highestPointNumber" id="highestPointNumber">7492</p>
           </div>
         </a>
-
-
-
         <a id="lowestPointDiv" href="#">
           <div class="lowestPointDiv">
             <p class="lowestPoint">Amu Darya</p>
             <p class="lowestPointNumber" id="lowestPointNumber">258</p>
           </div>
         </a>
-
-
-
-
       </div>
     </div>
+    <div class="interactiveBlock">
+      <p class="whosTurn">SINU KORD <br> Vali suurus!</p>
+      <button class="buttons" id="changeCards">Jätka</button>
+    </div>
+
+
     <div class=" card flip-card" id="flip-card">
       <div class="flip-card-inner" id="flip-card-inner">
         <div class="flip-card-front" id="flip-card-front">
           <img src="pictures/backCard.png" alt="cards back Side" style="width:356px;height:554px">
         </div>
         <div class="flip-card-back" id="flip-card-back">
-
 
 
           <!-- <div class="card"> -->
@@ -104,6 +108,9 @@
             </div>
             <div class="capital">
               <p id="opponentCapital">Kabul Karakabul</p>
+            </div>
+            <div class="mapsPic">
+              <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
             </div>
             <div class="countryData">
               <p class="population">Rahvaarv</p>
@@ -128,11 +135,21 @@
           <!-- </div> -->
 
 
-
         </div>
       </div>
     </div>
   </div>
+
+
+
+  <!--  <script>-->
+  <!--    document.getElementById("changeCards").addEventListener("click", blur);-->
+
+  <!--    function blur() {-->
+  <!--      let mainGamersCard = document.getElementById("mainGamersCard");-->
+  <!--      mainGamersCard.classList.add("blur");-->
+  <!--    }-->
+  <!--  </script>-->
   </body>
 
   </html>

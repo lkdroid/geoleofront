@@ -1,3 +1,18 @@
+body {
+    /* background: -webkit-linear-gradient(#F2C862, transparent), -webkit-linear-gradient(0deg, #F2C862, transparent), -webkit-linear-gradient(180deg, #4F4489, transparent);
+    background: linear-gradient(#F2C862, transparent), linear-gradient(90deg, #F2C862, transparent), linear-gradient(-90deg, #4F4489, transparent);
+    background-blend-mode: screen; */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(79, 68, 137, 0.75), rgba(242, 200, 98, 0.75)), url('../pictures/worldmap.png');
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* background: linear-gradient(to bottom, rgba(79, 68, 137, 0.75), rgba(242, 200, 98, 0.75)); */
+
+
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -9,14 +24,38 @@ a:hover {
 }
 
 .header {
-    padding: 20px 20px 0px 20px;
+    padding: 10px 0px 10px 0px;
+    position: fixed;
+    width: 100vw;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(225, 225, 225, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(1px);
+    top: 0;
+    font-family: 'Museo 500';
+
+}
+
+.headerData {
+    width: 100vw;
     display: flex;
     justify-content: space-between;
 }
 
+/* .headerHr {
+    background-color: #F1C863;
+    color: #F1C863;
+    height: 2px;
+    height: 3px;
+    padding: 0;
+    margin: 0;
+} */
+
 .activePlayerWrapper {
     display: flex;
     white-space: nowrap;
+    padding-left: 10px;
 }
 
 .activePlayer {
@@ -28,6 +67,7 @@ a:hover {
 .gameId {
     display: flex;
     white-space: nowrap;
+    padding-right: 50px;
 }
 
 .geoheeIdText {
@@ -37,7 +77,9 @@ a:hover {
 
 .idNumber {}
 
-.opponentPlayer {}
+.opponentPlayer {
+    padding-right: 10px;
+}
 
 .container {
     position: relative;
@@ -47,7 +89,7 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 10vw;
+    margin: 1vw 10vw;
     padding: 0;
     align-items: center;
 }
@@ -67,6 +109,11 @@ a:hover {
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.095);
 }
+
+.blur {
+    filter: blur(4px);
+}
+
 
 .cardsInnerBorder {
     position: absolute;
@@ -98,7 +145,7 @@ a:hover {
 .waterNumber,
 .waterNr {
     position: absolute;
-    width: 46px;
+    width: auto;
     height: 20px;
     font-family: 'Bitter';
     font-style: normal;
@@ -112,7 +159,7 @@ a:hover {
 }
 
 .waterNr:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .height {
@@ -133,7 +180,7 @@ a:hover {
 .heightNumber,
 .heightNr {
     position: absolute;
-    width: 71px;
+    width: auto;
     height: 20px;
     font-family: 'Bitter';
     font-style: normal;
@@ -148,7 +195,7 @@ a:hover {
 }
 
 .heightNr:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .countryFlag {
@@ -170,13 +217,6 @@ a:hover {
     left: 50%;
     top: 43%;
     transform: translate(-50%, -50%);
-}
-
-.headerHr {
-    background-color: #F1C863;
-    color: #F1C863;
-    height: 2px;
-    height: 3px;
 }
 
 
@@ -203,7 +243,7 @@ a:hover {
 
 
 .countryLink:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .capital {
@@ -228,9 +268,24 @@ a:hover {
 }
 
 .capitalLink:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
+.mapsPic {
+    position: absolute;
+    height: 140px;
+    width: 184px;
+    left: 50%;
+    top: 85%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+
+}
+
+.countryMap {
+    height: 140px;
+    width: 184px;
+}
 
 .population {
     position: absolute;
@@ -267,7 +322,7 @@ a:hover {
 }
 
 .populationNumber:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .area {
@@ -305,7 +360,7 @@ a:hover {
 }
 
 .areaNumbers:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .areaNumber1 {
@@ -313,7 +368,9 @@ a:hover {
     text-align: left;
 }
 
-.areaNumber2 {}
+.areaNumber2 {
+    font-size: 16px;
+}
 
 .hdi {
     position: absolute;
@@ -349,7 +406,7 @@ a:hover {
 }
 
 .hdiNumber:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .highestPointDiv,
@@ -372,7 +429,7 @@ a:hover {
 }
 
 .highestPointDiv:hover {
-    color: black;
+    color: #4F4489;
 }
 
 .highestPoint {
@@ -403,7 +460,7 @@ a:hover {
 }
 
 .lowestPointDiv:hover {
-    color: black;
+    color: #4F4489;
 }
 
 .lowestPoint {
@@ -418,14 +475,27 @@ a:hover {
 
 
 
+.interactiveBlock {
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 27px;
+    line-height: 34px;
+    text-align: center;
+    padding: 0 5px;
 
+}
+
+.whosTurn {}
+
+.buttons {}
 
 
 
 
 
 .flip-card {
-    background-color: transparent;
+    background-color: white;
     perspective: 1000px;
 }
 
@@ -460,4 +530,113 @@ a:hover {
 .flip-card-back {
     color: white;
     transform: rotateY(180deg);
+}
+
+
+/* Buttons css */
+.buttons {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    padding: 0 16px;
+    min-width: 64px;
+    width: 120px;
+    height: 36px;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    background-color: rgb(var(--pure-material-primary-rgb, 79, 68, 137));
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.buttons::-moz-focus-inner {
+    border: none;
+}
+
+/* Overlay */
+.buttons::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Ripple */
+.buttons::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    padding: 50%;
+    width: 32px;
+    /* Safari */
+    height: 32px;
+    /* Safari */
+    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 1s, transform 0.5s;
+}
+
+/* Hover, Focus */
+.buttons:hover,
+.buttons:focus {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.buttons:hover::before {
+    opacity: 0.08;
+}
+
+.buttons:focus::before {
+    opacity: 0.24;
+}
+
+.buttons:hover:focus::before {
+    opacity: 0.3;
+}
+
+/* Active */
+.buttons:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.buttons:active::after {
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0s;
+}
+
+/* Disabled */
+.buttons:disabled {
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.12);
+    box-shadow: none;
+    cursor: initial;
+}
+
+.buttons:disabled::before {
+    opacity: 0;
+}
+
+.buttons:disabled::after {
+    opacity: 0;
 }
