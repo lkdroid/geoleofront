@@ -31,7 +31,7 @@
   </header>
 
   <body>
-  <div class="container">
+  <div class="gameContainer">
     <div class="card" id="mainGamersCard">
       <div class="cardsInnerBorder">
         <div class="cardsTopText">
@@ -139,17 +139,14 @@
       </div>
     </div>
   </div>
+<!--  <script>-->
+<!--    document.getElementById("changeCards").addEventListener("click", blur);-->
 
-
-
-  <!--  <script>-->
-  <!--    document.getElementById("changeCards").addEventListener("click", blur);-->
-
-  <!--    function blur() {-->
-  <!--      let mainGamersCard = document.getElementById("mainGamersCard");-->
-  <!--      mainGamersCard.classList.add("blur");-->
-  <!--    }-->
-  <!--  </script>-->
+<!--    function blur() {-->
+<!--      let mainGamersCard = document.getElementById("mainGamersCard");-->
+<!--      mainGamersCard.classList.add("blur");-->
+<!--    }-->
+<!--  </script>-->
   </body>
 
   </html>
