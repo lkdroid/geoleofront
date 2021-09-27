@@ -1,10 +1,11 @@
-body {
+.body {
     width: 100%;
     height: 100%;
     background: linear-gradient(to bottom, rgba(79, 68, 137, 0.75), rgba(242, 200, 98, 0.75)), url('../pictures/worldmap.png');
     background-position: bottom;
     background-repeat: no-repeat;
-    font-family: 'Museo 500';
+    font-family: 'Museo 500', serif;
+    padding: 10px 0px 10px 0px;
 }
 
 a {
@@ -470,7 +471,7 @@ a:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.flip-card:hover .flip-card-inner {
+.flip-card .letsFlip {
     transform: rotateY(180deg);
 }
 
@@ -510,8 +511,8 @@ a:hover {
     text-align: center;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
-    background-color: rgb(var(--pure-material-primary-rgb, 79, 68, 137));
+    color: white;
+    background-color: rgb(79, 68, 137);
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     font-family: 'font-family';
     font-size: 14px;
@@ -534,7 +535,7 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    background-color: rgb(255, 255, 255);
     opacity: 0;
     transition: opacity 0.2s;
 }
@@ -548,23 +549,18 @@ a:hover {
     padding: 50%;
     width: 32px;
     height: 32px;
-    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    background-color: rgb(255, 255, 255);
     opacity: 0;
     transform: translate(-50%, -50%) scale(1);
     transition: opacity 1s, transform 0.5s;
 }
 
-.buttons:hover,
-.buttons:focus {
+.buttons:hover {
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .buttons:hover::before {
     opacity: 0.08;
-}
-
-.buttons:focus::before {
-    opacity: 0.24;
 }
 
 .buttons:hover:focus::before {
@@ -582,8 +578,8 @@ a:hover {
 }
 
 .buttons:disabled {
-    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
-    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.12);
+    color: rgba(0, 0, 0, 0.38);
+    background-color: rgba(0, 0, 0, 0.12);
     box-shadow: none;
     cursor: initial;
 }
@@ -609,7 +605,7 @@ a:hover {
     display: block;
     margin: 30px auto;
     width: 300px;
-    height: 35px;
+    height: 55px;
     position: relative;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.09);
     border-radius: 35px;
@@ -621,11 +617,11 @@ a:hover {
     width: 200px;
     background: none;
     border: none;
-    padding: 10px 20px;
+    padding: 16px 20px;
     color: #0a8377;
     font-family: 'Bitter';
     font-style: normal;
-    font-size: 12px;
+    font-size: 16px;
     -webkit-transition: all .5s ease-out;
     -moz-transition: all .5s ease-out;
     -ms-transition: all .5s ease-out;
@@ -657,8 +653,8 @@ a:hover {
 .fieldInput .form-submit {
     color: #0a8377;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 3px;
+    top: 8px;
     width: 70px;
     height: 35px;
     border-radius: 17px;
@@ -668,7 +664,7 @@ a:hover {
     cursor: pointer;
     font-family: 'Bitter';
     font-style: normal;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .modeButtons {
@@ -741,6 +737,18 @@ a:hover {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+
+.initial {
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0.3s linear,opacity 0.3s linear;
+}
+
+.addId{
+    visibility:visible;
+    opacity:1;
 }
 
 .addIdText {
