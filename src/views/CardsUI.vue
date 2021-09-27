@@ -96,12 +96,20 @@ export default {
       } else if (this.hideInput = false) {
         this.hideInput = false
       }
+
+      // if (this.hideInput = true) {
+      //   setTimeout(() => this.hideInput = false, 2000);
+      // } else if (this.hideInput = false) {
+      //   setTimeout(() => this.hideInput = false, 2000);
+      // }
     },
     playWithFriend: function () {
       if (this.hideInput = false) {
         this.hideInput = true
       } else if (this.hideInput = true) {
         this.hideInput = true
+        // setTimeout(() => this.hideInput = true, 500);
+
       }
       this.IdMessage = "Mängu ID";
       this.message = "Sisesta sõbra mängu ID";
