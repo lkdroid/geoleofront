@@ -1,9 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/game">Game</router-link>
-    </div>
-    <router-view/>
+    <!--    <div id="nav">-->
+    <!--      <router-link to="/game">Game</router-link>-->
+    <!--    </div>-->
+    <transition
+        name="fade"
+        mode="out-in"
+    >
+      <router-view/>
+    </transition>
+    <!--    <router-view/>-->
   </div>
 </template>
 
@@ -27,5 +33,17 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
 </style>

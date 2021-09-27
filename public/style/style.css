@@ -1,3 +1,13 @@
+.body {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(79, 68, 137, 0.75), rgba(242, 200, 98, 0.75)), url('../pictures/worldmap.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    font-family: 'Museo 500', serif;
+    padding: 10px 0px 10px 0px;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -9,7 +19,21 @@ a:hover {
 }
 
 .header {
-    padding: 20px 20px 0px 20px;
+    padding: 10px 0px 10px 0px;
+    position: fixed;
+    width: 100vw;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(225, 225, 225, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(1px);
+    top: 0;
+    font-family: 'Museo 500';
+
+}
+
+.headerData {
+    width: 100vw;
     display: flex;
     justify-content: space-between;
 }
@@ -17,17 +41,17 @@ a:hover {
 .activePlayerWrapper {
     display: flex;
     white-space: nowrap;
+    padding-left: 10px;
 }
 
 .activePlayer {
     margin-right: 2px;
 }
 
-.activePlayerId {}
-
 .gameId {
     display: flex;
     white-space: nowrap;
+    padding-right: 50px;
 }
 
 .geoheeIdText {
@@ -35,11 +59,11 @@ a:hover {
 
 }
 
-.idNumber {}
+.opponentPlayer {
+    padding-right: 10px;
+}
 
-.opponentPlayer {}
-
-.container {
+.gameContainer {
     position: relative;
     height: 100vh;
     margin: auto;
@@ -47,7 +71,7 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 10vw;
+    margin: 1vw 10vw;
     padding: 0;
     align-items: center;
 }
@@ -62,11 +86,16 @@ a:hover {
     overflow: hidden;
     margin: 3vh auto;
     border-radius: 20px;
-    /* box-shadow: -5px 19px 38px 5px rgba(0, 0, 0, 0.30), 5px 15px 15px 2px rgba(0, 0, 0, 0.22); */
     box-shadow: 1px 4px 12px 3px rgba(0, 0, 0, 0.35);
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.095);
 }
+
+.blur {
+    transition: all 0.2s ease-in-out;
+    filter: blur(4px);
+}
+
 
 .cardsInnerBorder {
     position: absolute;
@@ -98,7 +127,7 @@ a:hover {
 .waterNumber,
 .waterNr {
     position: absolute;
-    width: 46px;
+    width: auto;
     height: 20px;
     font-family: 'Bitter';
     font-style: normal;
@@ -112,7 +141,7 @@ a:hover {
 }
 
 .waterNr:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .height {
@@ -133,7 +162,7 @@ a:hover {
 .heightNumber,
 .heightNr {
     position: absolute;
-    width: 71px;
+    width: auto;
     height: 20px;
     font-family: 'Bitter';
     font-style: normal;
@@ -148,7 +177,7 @@ a:hover {
 }
 
 .heightNr:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .countryFlag {
@@ -170,13 +199,6 @@ a:hover {
     left: 50%;
     top: 43%;
     transform: translate(-50%, -50%);
-}
-
-.headerHr {
-    background-color: #F1C863;
-    color: #F1C863;
-    height: 2px;
-    height: 3px;
 }
 
 
@@ -203,7 +225,7 @@ a:hover {
 
 
 .countryLink:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .capital {
@@ -228,9 +250,23 @@ a:hover {
 }
 
 .capitalLink:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
+.mapsPic {
+    position: absolute;
+    height: 140px;
+    width: 184px;
+    left: 50%;
+    top: 85%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.countryMap {
+    height: 140px;
+    width: 184px;
+}
 
 .population {
     position: absolute;
@@ -267,7 +303,7 @@ a:hover {
 }
 
 .populationNumber:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .area {
@@ -284,7 +320,6 @@ a:hover {
     top: 81%;
     text-align: left;
     left: 10%;
-
 }
 
 .areaNumbers,
@@ -305,7 +340,7 @@ a:hover {
 }
 
 .areaNumbers:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .areaNumber1 {
@@ -313,7 +348,9 @@ a:hover {
     text-align: left;
 }
 
-.areaNumber2 {}
+.areaNumber2 {
+    font-size: 16px;
+}
 
 .hdi {
     position: absolute;
@@ -349,7 +386,7 @@ a:hover {
 }
 
 .hdiNumber:hover {
-    color: #F1C863;
+    color: #4F4489;
 }
 
 .highestPointDiv,
@@ -372,16 +409,13 @@ a:hover {
 }
 
 .highestPointDiv:hover {
-    color: black;
+    color: #4F4489;
 }
 
 .highestPoint {
     margin-right: 3%;
     text-align: left;
-
 }
-
-.highestPointNumber {}
 
 .lowestPointDiv,
 .opponentLowestPointDiv {
@@ -403,29 +437,27 @@ a:hover {
 }
 
 .lowestPointDiv:hover {
-    color: black;
+    color: #4F4489;
 }
 
 .lowestPoint {
     margin-right: 3%;
     text-align: left;
-
 }
 
-.lowestPointNumber {}
 
-
-
-
-
-
-
-
-
-
+.interactiveBlock {
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 27px;
+    line-height: 34px;
+    text-align: center;
+    padding: 0 5px;
+}
 
 .flip-card {
-    background-color: transparent;
+    background-color: white;
     perspective: 1000px;
 }
 
@@ -439,7 +471,7 @@ a:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.flip-card:hover .flip-card-inner {
+.flip-card .letsFlip {
     transform: rotateY(180deg);
 }
 
@@ -460,4 +492,265 @@ a:hover {
 .flip-card-back {
     color: white;
     transform: rotateY(180deg);
+}
+
+
+/* Game buttons css */
+
+.buttons {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    padding: 0 16px;
+    min-width: 64px;
+    width: 120px;
+    height: 36px;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    color: white;
+    background-color: rgb(79, 68, 137);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    font-family: 'font-family';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.buttons::-moz-focus-inner {
+    border: none;
+}
+
+.buttons::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.buttons::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    padding: 50%;
+    width: 32px;
+    height: 32px;
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 1s, transform 0.5s;
+}
+
+.buttons:hover {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.buttons:hover::before {
+    opacity: 0.08;
+}
+
+.buttons:hover:focus::before {
+    opacity: 0.3;
+}
+
+.buttons:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.buttons:active::after {
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0s;
+}
+
+.buttons:disabled {
+    color: rgba(0, 0, 0, 0.38);
+    background-color: rgba(0, 0, 0, 0.12);
+    box-shadow: none;
+    cursor: initial;
+}
+
+.buttons:disabled::before {
+    opacity: 0;
+}
+
+.buttons:disabled::after {
+    opacity: 0;
+}
+
+
+/* First page buttons CSS */
+
+.mainTitle {
+    font-family: 'Museo 500';
+    text-align: center;
+    margin: 30px auto;
+}
+
+.fieldInput {
+    display: block;
+    margin: 30px auto;
+    width: 300px;
+    height: 55px;
+    position: relative;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.09);
+    border-radius: 35px;
+    overflow: hidden;
+    background: white;
+}
+
+.fieldInput .form-input {
+    width: 200px;
+    background: none;
+    border: none;
+    padding: 16px 20px;
+    color: #0a8377;
+    font-family: 'Bitter';
+    font-style: normal;
+    font-size: 16px;
+    -webkit-transition: all .5s ease-out;
+    -moz-transition: all .5s ease-out;
+    -ms-transition: all .5s ease-out;
+    -o-transition: all .5s ease-out;
+    transition: all .5s ease-out;
+}
+
+.fieldInput .form-input:focus {
+    outline: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -ms-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
+}
+
+.form-input:focus::placeholder {
+    color: transparent;
+    -webkit-transition: all .5s ease-out;
+    -moz-transition: all .5s ease-out;
+    -ms-transition: all .5s ease-out;
+    -o-transition: all .5s ease-out;
+    transition: all .5s ease-out;
+}
+
+.fieldInput .form-submit {
+    color: #0a8377;
+    position: absolute;
+    right: 3px;
+    top: 8px;
+    width: 70px;
+    height: 35px;
+    border-radius: 17px;
+    border: none;
+    background: none;
+    box-shadow: 5px -2px 81px 1px rgba(0, 0, 0, 0.09);
+    cursor: pointer;
+    font-family: 'Bitter';
+    font-style: normal;
+    font-size: 16px;
+}
+
+.modeButtons {
+    min-width: 720px;
+}
+
+.btn {
+    margin: 1rem;
+    padding: 0;
+    text-transform: uppercase;
+    width: 170px;
+    height: 40px;
+}
+
+.btn-round {
+    border-radius: 10em;
+}
+
+.material-design {
+    position: relative;
+}
+
+
+/* First page CSS */
+
+.indexBody {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(79, 68, 137, 0.75), rgba(242, 200, 98, 0.75)), url('../pictures/earth.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Museo 500';
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    margin: auto;
+    text-align: center;
+    margin: 0 10vw;
+    padding: 0;
+    align-items: center;
+}
+
+.titleH1 {
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 34px;
+    text-align: center;
+    padding: 45px 0px 0px 0px;
+    color: #f0e9d7;
+}
+
+.titleH2 {
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 34px;
+    text-align: center;
+    padding: 20px 0px 0px 0px;
+    color: #f0e9d7;
+}
+
+.CardsUI {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.initial {
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0.3s linear,opacity 0.3s linear;
+}
+
+.addId{
+    visibility:visible;
+    opacity:1;
+}
+
+.addIdText {
+    color: #f0e9d7;
 }
