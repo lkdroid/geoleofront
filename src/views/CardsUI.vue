@@ -173,7 +173,7 @@ export default {
                 localStorage.playerName = this.player_name
                 localStorage.gameID = this.gameID
                 localStorage.playerID = this.playerID
-                this.$router.push('GeoheeGame')
+                this.$router.push('game')
                 clearInterval(this.pollInterval)
               }
               this.status = response;
