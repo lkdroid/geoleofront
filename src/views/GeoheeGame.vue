@@ -143,9 +143,11 @@ export default {
   data: function () {
     return {
       removeClass: true
+      move:''
     }
   },
   methods: {
+
     letsFlip: function () {
       // if (this.removeClass = false) {
       //   this.removeClass = true
@@ -153,6 +155,7 @@ export default {
       //   this.removeClass = false
       // }
       this.removeClass = !this.removeClass
+
     }
   }
 }
