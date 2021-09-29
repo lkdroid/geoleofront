@@ -35,7 +35,7 @@
             <a class="capitalLink" id="capital" href="#">Kabul Karakabul</a>
           </div>
           <div class="mapsPic">
-            <img class="countryMap" src="" alt="cards map">
+            <img class="countryMap" id="countryMap" src="" alt="cards map">
           </div>
           <div class="countryData">
             <p class="population">Rahvaarv</p>
@@ -69,6 +69,7 @@
         <p class="whosTurn">SINU KORD <br> Vali suurus!</p>
         <button @click="letsFlip" type="submit" class="buttons" id="changeCards">Jätka</button>
         <button @click="testButton()" type="submit" class="buttons" id="testButton">Let's test</button>
+
 
       </div>
 
@@ -144,6 +145,9 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
+      playerId: '2',
+      gameId: '2db9fe47-0f8c-44e8-9ec3-55158d88be19',
+      countryId: '5',
       removeClass: true,
       countryFlag: 'AF.png', //seda on vaja muuta
       countryMap: 'AF.png', //seda on vaja muuta
@@ -153,28 +157,28 @@ export default {
   methods: {
 
     letsFlip: function () {
-      // if (this.removeClass = false) {
-      //   this.removeClass = true
-      // } else if (this.removeClass = true) {
-      //   this.removeClass = false
-      // }
       this.removeClass = !this.removeClass
     },
 
 
     testButton: function () {
-      // Random r = new Random();
-      // int low = 10;
-      // int high = 100;
-      // int result = r.nextInt(high-low) + low;
       let randomNrOne = Math.floor(Math.random() * 5) + 1;
       console.log(randomNrOne);
+      this.$http.post('cardsInGameAdding/' + this.playerId + "/" + this.gameId + "/" + randomNrOne)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       this.$http.get('/countrydata/' + randomNrOne)
           .then(response => {
             let countryData = response.data;
             console.log(countryData);
             let countryFlag = document.getElementById("countryFlag");
             countryFlag.src = 'pictures/flags/' + this.countryFlag;
+            let countryMap = document.getElementById("countryMap");
+            countryMap.src = 'pictures/maps/' + this.countryMap;
             let waterNr = document.getElementById("waterNr");
             waterNr.innerText = countryData.water;
             let heightNr = document.getElementById("heightNr");
@@ -199,16 +203,24 @@ export default {
             lowestPoint.innerText = "pole tabelis";
             let lowestPointNumber = document.getElementById("lowestPointNumber");
             lowestPointNumber.innerText = countryData.lowestPointNumber.toLocaleString('et');
-
           })
       let randomNrTwo = Math.floor(Math.random() * 5) + 1;
       console.log(randomNrTwo);
+      this.$http.post('cardsInGameAdding/' + this.playerId + "/" + this.gameId + "/" + randomNrTwo)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       this.$http.get('/countrydata/' + randomNrTwo)
           .then(response => {
             let countryData = response.data;
             console.log(countryData);
             let opponentCountryFlag = document.getElementById("opponentCountryFlag");
             opponentCountryFlag.src = 'pictures/flags/' + this.countryFlag;
+            let opponentCountryMap = document.getElementById("opponentCountryMap");
+            opponentCountryMap.src = 'pictures/maps/' + this.countryMap;
             let opponentWaterNr = document.getElementById("opponentWaterNr");
             opponentWaterNr.innerText = countryData.water;
             let opponentHeightNr = document.getElementById("opponentHeightNr");
