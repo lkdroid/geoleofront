@@ -26,7 +26,7 @@
             <p class="height">kõrgus</p>
             <a class="heightNr" id="heightNr" href="#">1884</a>
           </div>
-          <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="cards flag"></a>
+          <a href="#"><img class="countryFlag" id="countryFlag" src="" alt="cards flag"></a>
           <hr class="cardHr">
           <div class="country">
             <a class="countryLink" id="country" href="#">Ameerika Ühendriigid</a>
@@ -35,7 +35,7 @@
             <a class="capitalLink" id="capital" href="#">Kabul Karakabul</a>
           </div>
           <div class="mapsPic">
-            <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
+            <img class="countryMap" src="" alt="cards map">
           </div>
           <div class="countryData">
             <p class="population">Rahvaarv</p>
@@ -53,13 +53,13 @@
 
           <a id="highestPointDiv" href="#">
             <div class="highestPointDiv">
-              <p class="highestPoint">Noshaq</p>
+              <p class="highestPoint" id="highestPoint">Noshaq</p>
               <p class="highestPointNumber" id="highestPointNumber">7492</p>
             </div>
           </a>
           <a id="lowestPointDiv" href="#">
             <div class="lowestPointDiv">
-              <p class="lowestPoint">Amu Darya</p>
+              <p class="lowestPoint" id="lowestPoint">Amu Darya</p>
               <p class="lowestPointNumber" id="lowestPointNumber">258</p>
             </div>
           </a>
@@ -67,7 +67,9 @@
       </div>
       <div class="interactiveBlock">
         <p class="whosTurn">SINU KORD <br> Vali suurus!</p>
-        <button @click="letsFlip" type="submit"  class="buttons" id="changeCards">Jätka</button>
+        <button @click="letsFlip" type="submit" class="buttons" id="changeCards">Jätka</button>
+        <button @click="testButton()" type="submit" class="buttons" id="testButton">Let's test</button>
+
       </div>
 
 
@@ -83,11 +85,11 @@
             <div class="cardsInnerBorder">
               <div class="cardsTopText">
                 <p class="water">vesi</p>
-                <p class="waterNumber" id="opponentWaterNumber">0</p>
+                <p class="waterNumber" id="opponentWaterNr">0</p>
                 <p class="height">kõrgus</p>
-                <p class="heightNumber" id="opponentHeightNumber">1884</p>
+                <p class="heightNumber" id="opponentHeightNr">1884</p>
               </div>
-              <img class="countryFlag" id="opponentCountryFlag" src="pictures/flags/AF.png" alt="cards flag">
+              <img class="countryFlag" id="opponentCountryFlag" src="" alt="cards flag">
               <hr class="cardHr">
               <div class="country">
                 <p id="opponentCountry">Ameerika Ühendriigid</p>
@@ -96,7 +98,7 @@
                 <p id="opponentCapital">Kabul Karakabul</p>
               </div>
               <div class="mapsPic">
-                <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
+                <img class="countryMap opponentCountryMap" id="opponentCountryMap" src="" alt="cards map">
               </div>
               <div class="countryData">
                 <p class="population">Rahvaarv</p>
@@ -142,8 +144,10 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: true
-      move:''
+      removeClass: true,
+      countryFlag: 'AF.png', //seda on vaja muuta
+      countryMap: 'AF.png', //seda on vaja muuta
+
     }
   },
   methods: {
@@ -155,8 +159,86 @@ export default {
       //   this.removeClass = false
       // }
       this.removeClass = !this.removeClass
+    },
 
-    }
+
+    testButton: function () {
+      // Random r = new Random();
+      // int low = 10;
+      // int high = 100;
+      // int result = r.nextInt(high-low) + low;
+      let randomNrOne = Math.floor(Math.random() * 5) + 1;
+      console.log(randomNrOne);
+      this.$http.get('/countrydata/' + randomNrOne)
+          .then(response => {
+            let countryData = response.data;
+            console.log(countryData);
+            let countryFlag = document.getElementById("countryFlag");
+            countryFlag.src = 'pictures/flags/' + this.countryFlag;
+            let waterNr = document.getElementById("waterNr");
+            waterNr.innerText = countryData.water;
+            let heightNr = document.getElementById("heightNr");
+            heightNr.innerText = countryData.avgHeight;
+            let country = document.getElementById("country");
+            country.innerText = countryData.countryName;
+            let capital = document.getElementById("capital");
+            capital.innerText = countryData.capital;
+            let populationNumber = document.getElementById("populationNumber");
+            populationNumber.innerText = countryData.population.toLocaleString('et');
+            let areaNumber1 = document.getElementById("areaNumber1");
+            areaNumber1.innerText = countryData.area.toLocaleString('et');
+            let areaNumber2 = document.getElementById("areaNumber2");
+            areaNumber2.innerText = countryData.density;
+            let hdiNumber = document.getElementById("hdiNumber");
+            hdiNumber.innerText = countryData.hdi;
+            let highestPoint = document.getElementById("highestPoint");
+            highestPoint.innerText = "pole tabelis";
+            let highestPointNumber = document.getElementById("highestPointNumber");
+            highestPointNumber.innerText = countryData.highestPointNumber.toLocaleString('et');
+            let lowestPoint = document.getElementById("lowestPoint");
+            lowestPoint.innerText = "pole tabelis";
+            let lowestPointNumber = document.getElementById("lowestPointNumber");
+            lowestPointNumber.innerText = countryData.lowestPointNumber.toLocaleString('et');
+
+          })
+      let randomNrTwo = Math.floor(Math.random() * 5) + 1;
+      console.log(randomNrTwo);
+      this.$http.get('/countrydata/' + randomNrTwo)
+          .then(response => {
+            let countryData = response.data;
+            console.log(countryData);
+            let opponentCountryFlag = document.getElementById("opponentCountryFlag");
+            opponentCountryFlag.src = 'pictures/flags/' + this.countryFlag;
+            let opponentWaterNr = document.getElementById("opponentWaterNr");
+            opponentWaterNr.innerText = countryData.water;
+            let opponentHeightNr = document.getElementById("opponentHeightNr");
+            opponentHeightNr.innerText = countryData.avgHeight;
+            let opponentCountry = document.getElementById("opponentCountry");
+            opponentCountry.innerText = countryData.countryName;
+            let opponentCapital = document.getElementById("opponentCapital");
+            opponentCapital.innerText = countryData.capital;
+            let opponentPopulationNumber = document.getElementById("opponentPopulationNumber");
+            opponentPopulationNumber.innerText = countryData.population.toLocaleString('et');
+            let opponentAreaNumber1 = document.getElementById("opponentAreaNumber1");
+            opponentAreaNumber1.innerText = countryData.area.toLocaleString('et');
+            let opponentAreaNumber2 = document.getElementById("opponentAreaNumber2");
+            opponentAreaNumber2.innerText = countryData.density;
+            let opponentHdiNumber = document.getElementById("opponentHdiNumber");
+            opponentHdiNumber.innerText = countryData.hdi;
+            let opponentHighestPoint = document.getElementById("opponentHighestPoint");
+            opponentHighestPoint.innerText = "pole tabelis";
+            let opponentHighestPointNumber = document.getElementById("opponentHighestPointNumber");
+            opponentHighestPointNumber.innerText = countryData.highestPointNumber.toLocaleString('et');
+            let opponentLowestPoint = document.getElementById("opponentLowestPoint");
+            opponentLowestPoint.innerText = "pole tabelis";
+            let opponentLowestPointNumber = document.getElementById("opponentLowestPointNumber");
+            opponentLowestPointNumber.innerText = countryData.lowestPointNumber.toLocaleString('et');
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    },
   }
 }
 </script>
