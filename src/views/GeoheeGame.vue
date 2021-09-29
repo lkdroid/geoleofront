@@ -184,7 +184,7 @@ export default {
         gameID = localStorage.gameID
         this.checkMove()
       if (this.mover) {
-
+        this.$http.get('/randomcards/' + this.gameID)
       }
 
 
