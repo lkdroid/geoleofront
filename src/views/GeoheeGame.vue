@@ -142,11 +142,26 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: true
-      move:''
-    }
+      removeClass: true,
+      player_name: localStorage.playerName,
+      playerID: localStorage.playerID,
+      gameID: localStorage.gameID,
+      mover: ''
+          }
   },
   methods: {
+
+    checkMove: function () {
+      this.$http.get("/checkwhoisfirst/" + this.gameID + "/" + this.playerID)
+          .then(response => {
+             this.mover = response.data
+          })
+
+    },
+
+
+
+
 
     letsFlip: function () {
       // if (this.removeClass = false) {
@@ -157,6 +172,23 @@ export default {
       this.removeClass = !this.removeClass
 
     }
+  },
+
+  mounted() {
+    let player_name;
+    let playerID;
+    let gameID;
+    let cardcount = 0;
+    player_name = localStorage.playerName,
+        playerID = localStorage.playerID,
+        gameID = localStorage.gameID
+        this.checkMove()
+      if (this.mover) {
+
+      }
+
+
+
   }
 }
 </script>
