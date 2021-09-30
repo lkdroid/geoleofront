@@ -29,10 +29,10 @@
           <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="cards flag"></a>
           <hr class="cardHr">
           <div class="country">
-            <a class="countryLink" id="country" href="#">Ameerika Ühendriigid</a>
+            <a class="countryLink" id="country" href="#">{{ card1.countryName }}</a>
           </div>
           <div class="capital">
-            <a class="capitalLink" id="capital" href="#">Kabul Karakabul</a>
+            <a class="capitalLink" id="capital" href="#">{{ card1.capital }}</a>
           </div>
           <div class="mapsPic">
             <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
@@ -90,10 +90,10 @@
               <img class="countryFlag" id="opponentCountryFlag" src="pictures/flags/AF.png" alt="cards flag">
               <hr class="cardHr">
               <div class="country">
-                <p id="opponentCountry">Ameerika Ühendriigid</p>
+                <p id="opponentCountry">{{card2.countryName}}</p>
               </div>
               <div class="capital">
-                <p id="opponentCapital">Kabul Karakabul</p>
+                <p id="opponentCapital">{{ card2.capital }}</p>
               </div>
               <div class="mapsPic">
                 <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
@@ -148,8 +148,8 @@ export default {
       gameId: localStorage.gameID,
       mover: '',
       cardcount: '',
-      country1: '',
-      country2: ''
+      card1: {},
+      card2: {}
     }
   },
   methods: {
@@ -171,51 +171,73 @@ export default {
     this.player_name = localStorage.playerName,
         this.playerId = localStorage.playerID,
         this.gameId = localStorage.gameID
-    this.$http.get("/checkwhoisfirst/" + this.gameID + "/" + this.playerID)
+    this.$http.get("/checkwhoisfirst/" + this.gameId + "/" + this.playerId)
         .then(response => {
           this.mover = response.data
           if (this.mover) {
-            this.$http.get('/randomcards/' + this.gameID)
-                .then(response => {
-                      this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 1)
+            //this.$http.get('/randomcards/' + this.gameID)
+                //.then(response => {
+                      this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 1))
                           .then(response => {
-                                console(response)
-                                this.country1 = response.data
-                                this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 2)
-                                    .then(response => {
-                                      this.country2 = response.data
-
-                                      //display ja oota input
-
-
-                                    })
+                                console.log(response)
+                                this.card1 = response.data.card1
+                                this.card2 = response.data.card2
+                                // this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 2))
+                                //     .then(response => {
+                                //       this.country2 = response.data
+                                //
+                                //       //display ja oota nupule vajutust
+                                //
+                                //
+                                //     })
 
                               }
                           )
-
-
-                    }
-                )
-
-
-          }
-          else {
-            this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 1)
+                //    }
+                //)
+          } else {
+            this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 1))
                 .then(response => {
-                  console(response)
-                  this.country1 = response.data
-                  this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 2)
+                  console.log(response)
+                  this.card1 = response.data
+                  this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 2))
                       .then(response => {
-                        this.country2 = response.data
+                        this.card2 = response.data
+
+
+                        // display kaardid ja
+                        //
+                        // start polling kas real kus on thisgameid ning cardcount+1 on olemas player id
+
+                        this.$http.get('/checkIfInputYes/' + this.gameID + "/" + this.cardcount)
+                            .then(response => {
+                              if (response.data === true) {
+                                console.log(response);
+                                console.log("Andmed olemas")
+                                //siin tekita nüüd jätka nupp
+                                clearInterval(this.pollInterval)
+                              }
+                              this.status = response.data
+
+                                  .catch(function (error) {
+                                    console.log(error);
+                                  })
+                            })
+                        //ainult see osa oli eelmises failis mounted all
+                        if (this.status !== true) {
+                          this.pollInterval = setInterval(this.pollReady, 3000)
+                          setTimeout(() => {
+                            clearInterval(this.pollInterval)
+                          }, 600000)
+
+
+                        }
+
+
                       })
                 })
-            //start polling kas real kus on thisgameid ning cardcount+1 on olemas player id
-          }
+          } //else kinni
         })
-
-
-
-
   }
 }
 </script>
