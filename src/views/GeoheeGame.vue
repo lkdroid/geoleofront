@@ -22,9 +22,9 @@
         <div class="cardsInnerBorder">
           <div class="cardsTopText">
             <p class="water">vesi</p>
-            <a class="waterNr" id="waterNr" href="#">0</a>
+            <a class="waterNr" id="waterNr" href="#">{{ card1.water }}</a>
             <p class="height">kõrgus</p>
-            <a class="heightNr" id="heightNr" href="#">1884</a>
+            <a class="heightNr" id="heightNr" href="#">{{ card1.avgHeight }}</a>
           </div>
           <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="cards flag"></a>
           <hr class="cardHr">
@@ -39,28 +39,28 @@
           </div>
           <div class="countryData">
             <p class="population">Rahvaarv</p>
-            <a class="populationNumber" id="populationNumber" href="#">31 575 018</a>
+            <a class="populationNumber" id="populationNumber" href="#">{{ card1.population }}</a>
             <p class="area">Pindala</p>
             <a id="area" href="#">
               <div class="areaNumbers">
-                <p class="areaNumber1" id="areaNumber1">652 230</p>
-                <p class="areaNumber2" id="areaNumber2">(46)</p>
+                <p class="areaNumber1" id="areaNumber1">{{ card1.area }}</p>
+                <p class="areaNumber2" id="areaNumber2">{{ card1.density }}</p>
               </div>
             </a>
             <p class="hdi">hdi</p>
-            <a class="hdiNumber" id="hdiNumber" href="#">0,4988</a>
+            <a class="hdiNumber" id="hdiNumber" href="#">{{ card1.hdi }}</a>
           </div>
 
           <a id="highestPointDiv" href="#">
             <div class="highestPointDiv">
-              <p class="highestPoint">Noshaq</p>
-              <p class="highestPointNumber" id="highestPointNumber">7492</p>
+              <p class="highestPoint">{{ card1.highestName }}</p>
+              <p class="highestPointNumber" id="highestPointNumber">{{ card1.highestPointNumber }}</p>
             </div>
           </a>
           <a id="lowestPointDiv" href="#">
             <div class="lowestPointDiv">
-              <p class="lowestPoint">Amu Darya</p>
-              <p class="lowestPointNumber" id="lowestPointNumber">258</p>
+              <p class="lowestPoint">{{ card1.lowestName }}</p>
+              <p class="lowestPointNumber" id="lowestPointNumber">{{ card1.lowestPointNumber }}</p>
             </div>
           </a>
         </div>
@@ -83,9 +83,9 @@
             <div class="cardsInnerBorder">
               <div class="cardsTopText">
                 <p class="water">vesi</p>
-                <p class="waterNumber" id="opponentWaterNumber">0</p>
+                <p class="waterNumber" id="opponentWaterNumber">{{ card2.water }}</p>
                 <p class="height">kõrgus</p>
-                <p class="heightNumber" id="opponentHeightNumber">1884</p>
+                <p class="heightNumber" id="opponentHeightNumber">{{ card2.avgHeight }}</p>
               </div>
               <img class="countryFlag" id="opponentCountryFlag" src="pictures/flags/AF.png" alt="cards flag">
               <hr class="cardHr">
@@ -100,22 +100,22 @@
               </div>
               <div class="countryData">
                 <p class="population">Rahvaarv</p>
-                <p class="opponentPopulationNumber" id="opponentPopulationNumber">31 575 018</p>
+                <p class="opponentPopulationNumber" id="opponentPopulationNumber">{{ card2.population }}</p>
                 <p class="area">Pindala</p>
                 <div class="opponentAreaNumbers">
-                  <p class="areaNumber1" id="opponentAreaNumber1">652 230</p>
-                  <p class="areaNumber2" id="opponentAreaNumber2">(46)</p>
+                  <p class="areaNumber1" id="opponentAreaNumber1">{{ card2.area }}</p>
+                  <p class="areaNumber2" id="opponentAreaNumber2">{{ card2.density }}</p>
                 </div>
                 <p class="hdi">hdi</p>
-                <p class="opponentHdiNumber" id="opponentHdiNumber">0,498</p>
+                <p class="opponentHdiNumber" id="opponentHdiNumber">{{ card2.hdi }}</p>
               </div>
               <div class="opponentHighestPointDiv">
-                <p class="highestPoint" id="opponentHighestPoint">Noshaq</p>
-                <p class="highestPointNumber" id="opponentHighestPointNumber">7492</p>
+                <p class="highestPoint" id="opponentHighestPoint">{{ card2.highestName }}</p>
+                <p class="highestPointNumber" id="opponentHighestPointNumber">{{ card2.highestPointNumber }}</p>
               </div>
               <div class="opponentLowestPointDiv">
-                <p class="lowestPoint" id="opponentLowestPoint">Amu Darya</p>
-                <p class="lowestPointNumber" id="opponentLowestPointNumber">258</p>
+                <p class="lowestPoint" id="opponentLowestPoint">{{ card2.lowestName }}</p>
+                <p class="lowestPointNumber" id="opponentLowestPointNumber">{{ card2.lowestPointNumber }}</p>
               </div>
             </div>
             <!-- </div> -->

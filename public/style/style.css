@@ -1,3 +1,4 @@
+
 .body {
     width: 100%;
     height: 100%;
@@ -472,6 +473,10 @@ a:hover {
 }
 
 .flip-card .letsFlip {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 
@@ -487,11 +492,26 @@ a:hover {
 .flip-card-front {
     background-color: #bbb;
     color: black;
+    /*-moz-transform: rotateY(180deg);*/
 }
 
 .flip-card-back {
     color: white;
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    /*transform: rotateX(0deg);*/
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
     transform: rotateY(180deg);
+}
+
+@-moz-document url-prefix() {
+    .flip-card-back {
+        transform: rotateX(0deg);
+    }
+    .flip-card-front {
+        -moz-transform: rotateY(180deg);
+    }
 }
 
 
