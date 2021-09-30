@@ -22,44 +22,44 @@
         <div class="cardsInnerBorder">
           <div class="cardsTopText">
             <p class="water">vesi</p>
-            <a class="waterNr" id="waterNr" href="#">0</a>
+            <a class="waterNr" id="waterNr" href="#"></a>
             <p class="height">kõrgus</p>
-            <a class="heightNr" id="heightNr" href="#">1884</a>
+            <a class="heightNr" id="heightNr" href="#"></a>
           </div>
-          <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="cards flag"></a>
+          <a href="#"><img class="countryFlag" id="countryFlag" src="" alt="cards flag"></a>
           <hr class="cardHr">
           <div class="country">
-            <a class="countryLink" id="country" href="#">Ameerika Ühendriigid</a>
+            <a class="countryLink" id="country" href="#"></a>
           </div>
           <div class="capital">
-            <a class="capitalLink" id="capital" href="#">Kabul Karakabul</a>
+            <a class="capitalLink" id="capital" href="#"></a>
           </div>
           <div class="mapsPic">
-            <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
+            <img class="countryMap" id="countryMap" src="" alt="cards map">
           </div>
           <div class="countryData">
             <p class="population">Rahvaarv</p>
-            <a class="populationNumber" id="populationNumber" href="#">31 575 018</a>
+            <a class="populationNumber" id="populationNumber" href="#"></a>
             <p class="area">Pindala</p>
             <a id="area" href="#">
               <div class="areaNumbers">
-                <p class="areaNumber1" id="areaNumber1">652 230</p>
-                <p class="areaNumber2" id="areaNumber2">(46)</p>
+                <p class="areaNumber1" id="areaNumber1"></p>
+                <p class="areaNumber2" id="areaNumber2"></p>
               </div>
             </a>
             <p class="hdi">hdi</p>
-            <a class="hdiNumber" id="hdiNumber" href="#">0,4988</a>
+            <a class="hdiNumber" id="hdiNumber" href="#"></a>
           </div>
 
           <a id="highestPointDiv" href="#">
             <div class="highestPointDiv">
-              <p class="highestPoint">Noshaq</p>
-              <p class="highestPointNumber" id="highestPointNumber">7492</p>
+              <p class="highestPoint" id="highestPoint"></p>
+              <p class="highestPointNumber" id="highestPointNumber"></p>
             </div>
           </a>
           <a id="lowestPointDiv" href="#">
             <div class="lowestPointDiv">
-              <p class="lowestPoint">Amu Darya</p>
+              <p class="lowestPoint" id="lowestPoint">Amu Darya</p>
               <p class="lowestPointNumber" id="lowestPointNumber">258</p>
             </div>
           </a>
@@ -68,6 +68,8 @@
       <div class="interactiveBlock">
         <p class="whosTurn">SINU KORD <br> Vali suurus!</p>
         <button @click="letsFlip" type="submit" class="buttons" id="changeCards">Jätka</button>
+        <button @click="testButton()" type="submit" class="buttons" id="testButton">Let's test</button>
+
       </div>
 
 
@@ -83,39 +85,39 @@
             <div class="cardsInnerBorder">
               <div class="cardsTopText">
                 <p class="water">vesi</p>
-                <p class="waterNumber" id="opponentWaterNumber">0</p>
+                <p class="waterNumber" id="opponentWaterNr"></p>
                 <p class="height">kõrgus</p>
-                <p class="heightNumber" id="opponentHeightNumber">1884</p>
+                <p class="heightNumber" id="opponentHeightNr"></p>
               </div>
-              <img class="countryFlag" id="opponentCountryFlag" src="pictures/flags/AF.png" alt="cards flag">
+              <img class="countryFlag" id="opponentCountryFlag" src="" alt="cards flag">
               <hr class="cardHr">
               <div class="country">
-                <p id="opponentCountry">Ameerika Ühendriigid</p>
+                <p id="opponentCountry"></p>
               </div>
               <div class="capital">
-                <p id="opponentCapital">Kabul Karakabul</p>
+                <p id="opponentCapital"></p>
               </div>
               <div class="mapsPic">
-                <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
+                <img class="countryMap" id="opponentCountryMap" src="" alt="cards map">
               </div>
               <div class="countryData">
-                <p class="population">Rahvaarv</p>
-                <p class="opponentPopulationNumber" id="opponentPopulationNumber">31 575 018</p>
-                <p class="area">Pindala</p>
+                <p class="population"></p>
+                <p class="opponentPopulationNumber" id="opponentPopulationNumber"></p>
+                <p class="area"></p>
                 <div class="opponentAreaNumbers">
-                  <p class="areaNumber1" id="opponentAreaNumber1">652 230</p>
-                  <p class="areaNumber2" id="opponentAreaNumber2">(46)</p>
+                  <p class="areaNumber1" id="opponentAreaNumber1"></p>
+                  <p class="areaNumber2" id="opponentAreaNumber2"></p>
                 </div>
                 <p class="hdi">hdi</p>
-                <p class="opponentHdiNumber" id="opponentHdiNumber">0,498</p>
+                <p class="opponentHdiNumber" id="opponentHdiNumber"></p>
               </div>
               <div class="opponentHighestPointDiv">
-                <p class="highestPoint" id="opponentHighestPoint">Noshaq</p>
-                <p class="highestPointNumber" id="opponentHighestPointNumber">7492</p>
+                <p class="highestPoint" id="opponentHighestPoint"></p>
+                <p class="highestPointNumber" id="opponentHighestPointNumber"></p>
               </div>
               <div class="opponentLowestPointDiv">
-                <p class="lowestPoint" id="opponentLowestPoint">Amu Darya</p>
-                <p class="lowestPointNumber" id="opponentLowestPointNumber">258</p>
+                <p class="lowestPoint" id="opponentLowestPoint"></p>
+                <p class="lowestPointNumber" id="opponentLowestPointNumber"></p>
               </div>
             </div>
             <!-- </div> -->
@@ -162,7 +164,79 @@ export default {
       // }
       this.removeClass = !this.removeClass
 
-    }
+    },
+
+    testButton: function () {
+      let randomNrOne = Math.floor(Math.random() * 4) + 1;
+      console.log(randomNrOne);
+      let randomNrTwo = Math.floor(Math.random() * 4) + 1;
+      console.log(randomNrTwo);
+      this.$http.get('/countrydata/' + randomNrOne)
+          .then(response => {
+            let countryData = response.data;
+            console.log(countryData);
+            let countryFlag = document.getElementById("countryFlag");
+            countryFlag.src = 'pictures/flags/' + countryData.countryCode + '.png';
+            let countryMap = document.getElementById("countryMap");
+            countryMap.src = 'pictures/maps/' + countryData.contourCode + '.png';
+            let waterNr = document.getElementById("waterNr");
+            waterNr.innerText = countryData.water;
+            let heightNr = document.getElementById("heightNr");
+            heightNr.innerText = countryData.avgHeight;
+            let country = document.getElementById("country");
+            country.innerText = countryData.countryName;
+            let capital = document.getElementById("capital");
+            capital.innerText = countryData.capital;
+            let populationNumber = document.getElementById("populationNumber");
+            populationNumber.innerText = countryData.population.toLocaleString('et');
+            let areaNumber1 = document.getElementById("areaNumber1");
+            areaNumber1.innerText = countryData.area.toLocaleString('et');
+            let areaNumber2 = document.getElementById("areaNumber2");
+            areaNumber2.innerText = countryData.density;
+            let hdiNumber = document.getElementById("hdiNumber");
+            hdiNumber.innerText = countryData.hdi;
+            let highestPoint = document.getElementById("highestPoint");
+            highestPoint.innerText = countryData.highestName;
+            let highestPointNumber = document.getElementById("highestPointNumber");
+            highestPointNumber.innerText = countryData.highestPointNumber.toLocaleString('et');
+            let lowestPoint = document.getElementById("lowestPoint");
+            lowestPoint.innerText = countryData.lowestName;
+            let lowestPointNumber = document.getElementById("lowestPointNumber");
+            lowestPointNumber.innerText = countryData.lowestPointNumber.toLocaleString('et');
+          })
+      this.$http.get('/countrydata/' + randomNrTwo)
+          .then(response => {
+            let countryData = response.data;
+            console.log(countryData);
+            let opponentCountryFlag = document.getElementById("opponentCountryFlag");
+            opponentCountryFlag.src = 'pictures/flags/' + countryData.countryCode + '.png';
+            let opponentCountryMap = document.getElementById("opponentCountryMap");
+            opponentCountryMap.src = 'pictures/maps/' + countryData.contourCode + '.png';
+            let opponentWaterNr = document.getElementById("opponentWaterNr");
+            opponentWaterNr.innerText = countryData.water;
+            let opponentHeightNr = document.getElementById("opponentHeightNr");
+            opponentHeightNr.innerText = countryData.avgHeight;
+            let opponentCountry = document.getElementById("opponentCountry");
+            opponentCountry.innerText = countryData.countryName;
+            let opponentCapital = document.getElementById("opponentCapital");
+            opponentCapital.innerText = countryData.capital;
+            let opponentPopulationNumber = document.getElementById("opponentPopulationNumber");
+            opponentPopulationNumber.innerText = countryData.population.toLocaleString('et');
+            let opponentAreaNumber1 = document.getElementById("opponentAreaNumber1");
+            opponentAreaNumber1.innerText = countryData.area.toLocaleString('et');
+            let opponentAreaNumber2 = document.getElementById("opponentAreaNumber2");
+            opponentAreaNumber2.innerText = countryData.density;
+            let opponentHdiNumber = document.getElementById("opponentHdiNumber");
+            opponentHdiNumber.innerText = countryData.hdi;
+            let opponentHighestPoint = document.getElementById("opponentHighestPoint");
+            opponentHighestPoint.innerText = countryData.highestName;
+            let opponentHighestPointNumber = document.getElementById("opponentHighestPointNumber");
+            opponentHighestPointNumber.innerText = countryData.highestPointNumber.toLocaleString('et');
+            let opponentLowestPoint = document.getElementById("opponentLowestPoint");
+            opponentLowestPoint.innerText = countryData.lowestName;
+            let opponentLowestPointNumber = document.getElementById("opponentLowestPointNumber");
+            opponentLowestPointNumber.innerText = countryData.lowestPointNumber.toLocaleString('et');
+          })
   },
 
   mounted() {
@@ -186,6 +260,7 @@ export default {
                                       this.country2 = response.data
 
                                       //display ja oota input
+
 
 
                                     })
@@ -217,5 +292,5 @@ export default {
 
 
   }
-}
+}}
 </script>
