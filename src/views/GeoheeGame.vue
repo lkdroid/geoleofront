@@ -29,7 +29,7 @@
           <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="cards flag"></a>
           <hr class="cardHr">
           <div class="country">
-            <a class="countryLink" id="country" href="#">{{ card1.countryName }}</a>
+            <a class="countryLink" v-on:click="choose('countryName')" id="country" href="#">{{ card1.countryName }}</a>
           </div>
           <div class="capital">
             <a class="capitalLink" id="capital" href="#">{{ card1.capital }}</a>
@@ -39,7 +39,8 @@
           </div>
           <div class="countryData">
             <p class="population">Rahvaarv</p>
-            <a class="populationNumber" id="populationNumber" href="#">{{ card1.population }}</a>
+            <a class="populationNumber" id="populationNumber" v-on:click="choose('population')"
+               href="#">{{ card1.population }}</a>
             <p class="area">Pindala</p>
             <a id="area" href="#">
               <div class="areaNumbers">
@@ -67,7 +68,7 @@
       </div>
       <div class="interactiveBlock">
         <p class="whosTurn">SINU KORD <br> Vali suurus!</p>
-        <button @click="letsFlip" type="submit" class="buttons" id="changeCards">Jätka</button>
+        <button v-if="state == 1" type="submit" class="buttons" id="changeCards">Jätka</button>
       </div>
 
 
@@ -90,7 +91,7 @@
               <img class="countryFlag" id="opponentCountryFlag" src="pictures/flags/AF.png" alt="cards flag">
               <hr class="cardHr">
               <div class="country">
-                <p id="opponentCountry">{{card2.countryName}}</p>
+                <p id="opponentCountry">{{ card2.countryName }}</p>
               </div>
               <div class="capital">
                 <p id="opponentCapital">{{ card2.capital }}</p>
@@ -142,32 +143,61 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: true,
+      removeClass: false,
       player_name: localStorage.playerName,
       playerId: localStorage.playerID,
       gameId: localStorage.gameID,
       mover: '',
       cardcount: '',
       card1: {},
-      card2: {}
+      card2: {},
+      pollInterval: {},
+      state: 0
     }
   },
   methods: {
 
-    letsFlip: function () {
-      // if (this.removeClass = false) {
-      //   this.removeClass = true
-      // } else if (this.removeClass = true) {
-      //   this.removeClass = false
-      // }
-      this.removeClass = !this.removeClass
+     //      this.removeClass = true
 
+    choose: function (chosenField) {
+      console.log("country choise")
+      if (chosenField == 'population') {
+        console.log("population")
+        if (this.card1.population > this.card2.population) {
+          console.log("hurraa")
+        } else {
+          console.log("jama")
+        }
+      }
+      this.$http.get("/sendChosenField/" + chosenField + "/" + this.playerId + "/" + this.gameId + "/" + this.cardcount)
+          .then(response => {
+
+          })
+
+    }, pollData: function () {
+      this.pollInterval = setInterval(() => {
+        console.log('poll')
+        this.hasPlayerMoved()
+      }, 2000)
+    }, hasPlayerMoved: function () {
+      if(this.mover == false){
+        this.$http.get('/checkIfInputYes/' + this.gameId + "/" + this.cardcount)
+            .then(response => {
+              if (response.data.result === true) {
+                console.log(response);
+                console.log("Andmed olemas")
+                this.mover = true;
+                this.state = 1;
+                //siin tekita nüüd jätka nupp
+              }
+            })
+      }
     }
   },
-
   mounted() {
+    this.pollData();
 
-    this.cardcount = 0;
+    this.cardcount = 1;
     this.player_name = localStorage.playerName,
         this.playerId = localStorage.playerID,
         this.gameId = localStorage.gameID
@@ -176,65 +206,20 @@ export default {
           this.mover = response.data
           if (this.mover) {
             //this.$http.get('/randomcards/' + this.gameID)
-                //.then(response => {
-                      this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 1))
-                          .then(response => {
-                                console.log(response)
-                                this.card1 = response.data.card1
-                                this.card2 = response.data.card2
-                                // this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 2))
-                                //     .then(response => {
-                                //       this.country2 = response.data
-                                //
-                                //       //display ja oota nupule vajutust
-                                //
-                                //
-                                //     })
-
-                              }
-                          )
-                //    }
-                //)
+            //.then(response => {
+            this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
+                .then(response => {
+                      console.log(response)
+                      this.card1 = response.data.card1
+                      this.card2 = response.data.card2
+                    }
+                )
           } else {
-            this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 1))
+            this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
                 .then(response => {
                   console.log(response)
-                   // this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 2))
-                   //   .then(response => {
-                        this.card2 = response.data.card1
-                        this.card1 = response.data.card2
-
-
-                        // display kaardid ja
-                        //
-                        // start polling kas real kus on thisgameid ning cardcount+1 on olemas player id
-
-                        this.$http.get('/checkIfInputYes/' + this.gameID + "/" + this.cardcount)
-                            .then(response => {
-                              if (response.data === true) {
-                                console.log(response);
-                                console.log("Andmed olemas")
-                                //siin tekita nüüd jätka nupp
-                                clearInterval(this.pollInterval)
-                              }
-                              this.status = response.data
-
-                                  .catch(function (error) {
-                                    console.log(error);
-                                  })
-                            })
-                        //ainult see osa oli eelmises failis mounted all
-                        if (this.status !== true) {
-                          this.pollInterval = setInterval(this.pollReady, 3000)
-                          setTimeout(() => {
-                            clearInterval(this.pollInterval)
-                          }, 600000)
-
-
-                        }
-
-
-                     // })
+                  this.card2 = response.data.card1
+                  this.card1 = response.data.card2
                 })
           } //else kinni
         })
