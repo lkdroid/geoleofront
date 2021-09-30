@@ -245,7 +245,6 @@ export default {
             opponentLowestPoint.innerText = "pole tabelis";
             let opponentLowestPointNumber = document.getElementById("opponentLowestPointNumber");
             opponentLowestPointNumber.innerText = countryData.lowestPointNumber.toLocaleString('et');
-
           })
           .catch(function (error) {
             console.log(error);
