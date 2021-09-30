@@ -185,7 +185,7 @@ export default {
                                     .then(response => {
                                       this.country2 = response.data
 
-                                      //display ja oota input
+                                      //display ja oota nupule
 
 
                                     })
