@@ -12,7 +12,7 @@
               <!-- <input class="form-input" type="text" v-model="player_name" placeholder="Sinu nimi">-->
               <!-- <button v-on:click="enterPlayerName" type="submit" class="form-submit">Start</button>-->
               <input class="form-input" type="text" v-model="player_name" placeholder="Sinu nimi">
-              <button @click="checkName" type="submit" class="form-submit">Lisa</button>
+              <button @click="checkName" type="button" class="form-submit">Lisa</button>
             </fieldset>
           </form>
         </div>
@@ -31,7 +31,7 @@
                 <input class="form-input" type="text" v-model="playerID" :placeholder="[[ IdMessage ]]">
 
                 <!-- <button v-on:click="enterPlayerID" type="submit" class="form-submit">Lisa ID</button>-->
-                <button type="submit" @click="insertButton" class="form-submit">Edasi</button>
+                <button type="button" @click="insertButton" class="form-submit">Edasi</button>
 
               </fieldset>
             </form>
@@ -86,7 +86,8 @@ export default {
       gameID: '',
       isJoin: '',
       buttonState: 'new',
-      message2: ''
+      message2: '',
+      temporaryId:''
     }
   },
   methods: {
@@ -119,7 +120,9 @@ export default {
       this.buttonState = "join"
       this.IdMessage = "Mängu ID";
       this.message = "Sisesta sõbra mängu ID";
+      this.playerID=''
       this.hideInput = true
+
 
     }
     ,
@@ -149,18 +152,25 @@ export default {
     insertButton: function () {
       console.log(this.buttonState)
       if (this.buttonState == "join") {
-        this.$http.get("/joingame/" + this.playerID + "/" + this.gameID)
+        console.log(this.temoraryId)
+        console.log(this.playerID)
+        this.gameID = this.playerID
+        this.temporaryId = localStorage.playerID
+        this.$http.get("/joingame/" + this.temporaryId + "/" + this.gameID)
             .then(response => {
               console.log(response.data)
               this.pollReady()
             })
       } else {
+        localStorage.playerID = this.playerID
+        console.log(this.playerID)
+        console.log(this.temporaryId)
         this.$http.get("/checkNameId/" + this.player_name + "/" + this.playerID)
             .then(response => {
               if (response.data) {
                 this.hideInput=false
                 this.message2 = "Õige mängija ID! Vali nüüd altpoolt mängutüüp";
-              } else {
+                              } else {
                 this.hideInput = false
                 this.message2 = "See ei ole õige ID! Sisesta mängijanimi!"
               }

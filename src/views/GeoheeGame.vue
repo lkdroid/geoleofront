@@ -12,7 +12,7 @@
             <p class="geoheeIdText" id="geoheeIdText">Mängu ID:</p>
             <p class="idNumber" id="idNumber">{{ gameId }}</p>
           </div>
-          <p class="opponentPlayer" id="opponentPlayer">{{  }}</p>
+          <p class="opponentPlayer" id="opponentPlayer">Teine mängija</p>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
             <a class="countryLink" v-on:click="choose('countryName')" id="country" href="#">{{ card1.countryName }}</a>
           </div>
           <div class="capital">
-            <a class="capitalLink" id="capital" href="#">{{ card1.capital }}</a>
+            <a class="capitalLink" v-on:click="choose('capital')" id="capital" href="#">{{ card1.capital }}</a>
           </div>
           <div class="mapsPic">
             <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
@@ -45,24 +45,26 @@
             <p class="area">Pindala</p>
             <a id="area" href="#">
               <div class="areaNumbers">
-                <p class="areaNumber1" id="areaNumber1">{{ card1.area }}</p>
-                <p class="areaNumber2" id="areaNumber2">{{ card1.density }}</p>
+                <p class="areaNumber1" v-on:click="choose('area')" id="areaNumber1">{{ card1.area }}</p>
+                <p class="areaNumber2" v-on:click="choose('density')" id="areaNumber2">{{ card1.density }}</p>
               </div>
             </a>
-            <p class="hdi">hdi</p>
-            <a class="hdiNumber" id="hdiNumber" href="#">{{ card1.hdi }}</a>
+            <p class="hdi">HDI</p>
+            <a class="hdiNumber" v-on:click="choose('hdi')" id="hdiNumber" href="#">{{ card1.hdi }}</a>
           </div>
 
           <a id="highestPointDiv" href="#">
             <div class="highestPointDiv">
               <p class="highestPoint">{{ card1.highestName }}</p>
-              <p class="highestPointNumber" id="highestPointNumber">{{ card1.highestPointNumber }}</p>
+              <p class="highestPointNumber" v-on:click="choose('highestpoint')" id="highestPointNumber">
+                {{ card1.highestPointNumber }}</p>
             </div>
           </a>
           <a id="lowestPointDiv" href="#">
             <div class="lowestPointDiv">
               <p class="lowestPoint">{{ card1.lowestName }}</p>
-              <p class="lowestPointNumber" id="lowestPointNumber">{{ card1.lowestPointNumber }}</p>
+              <p class="lowestPointNumber" v-on:click="choose('lowestpoint')" id="lowestPointNumber">
+                {{ card1.lowestPointNumber }}</p>
             </div>
           </a>
         </div>
@@ -110,7 +112,7 @@
                   <p class="areaNumber1" id="opponentAreaNumber1">{{ card2.area }}</p>
                   <p class="areaNumber2" id="opponentAreaNumber2">{{ card2.density }}</p>
                 </div>
-                <p class="hdi">hdi</p>
+                <p class="hdi">HDI</p>
                 <p class="opponentHdiNumber" id="opponentHdiNumber">{{ card2.hdi }}</p>
               </div>
               <div class="opponentHighestPointDiv">
@@ -157,7 +159,7 @@ export default {
       pollInterval: {},
       state: 0,
       message1: '',
-      message: ''
+      message2: ''
     }
   },
   methods: {
@@ -166,7 +168,7 @@ export default {
 
     continueButton: function () {
 
-      this.state=0;
+      this.state = 0;
 
 
       this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
@@ -189,11 +191,13 @@ export default {
       this.$http.get("/sendChosenField/" + chosenField + "/" + this.playerId + "/" + this.gameId + "/" + this.cardcount)
           .then(response => {
             console.log(response.data)
-            if (response.data.winner == this.gameId){
+            if (response.data.winner == this.gameId) {
               this.message1 = "Sa küsisid suurust " + response.data.chosenField + " ning SINA VÕITSID!"
-              this.message2="Vajuta nupule JÄTKA"}
-            else {this.message1 = "Sa küsisid suurust " + response.data.chosenField + " ning TEMA VÕITIS!"
-              this.message2 = "Vajuta nupule JÄTKA"}
+              this.message2 = "Vajuta nupule JÄTKA"
+            } else {
+              this.message1 = "Sa küsisid suurust " + response.data.chosenField + " ning TEMA VÕITIS!"
+              this.message2 = "Vajuta nupule JÄTKA"
+            }
           })
       this.mover = !this.mover
       this.state = 2;
@@ -215,12 +219,14 @@ export default {
                 this.mover = true;
                 this.state = 1;
                 this.cardcount = this.cardcount + 2
-                if (response.data.winner === this.gameId){
-                this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning SINA VÕITSID!"
-                this.message2="Vajuta nupule JÄTKA"}
-                else {this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning TEMA VÕITIS!"
-                this.message2 = "Vajuta nupule JÄTKA"}
-                              }
+                if (response.data.winner === this.gameId) {
+                  this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning SINA VÕITSID!"
+                  this.message2 = "Vajuta nupule JÄTKA"
+                } else {
+                  this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning TEMA VÕITIS!"
+                  this.message2 = "Vajuta nupule JÄTKA"
+                }
+              }
             })
       }
     }
@@ -236,8 +242,6 @@ export default {
     this.$http.get("/checkwhoisfirst/" + this.gameId + "/" + this.playerId)
         .then(response => {
           this.mover = response.data
-
-
           this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
               .then(response => {
                 console.log(response)
@@ -248,7 +252,7 @@ export default {
                   this.card2 = response.data.card2
                 } else {
                   this.message1 = "Oota vastase käiku!"
-                  this.message2 =""
+                  this.message2 = ""
                   this.card2 = response.data.card1
                   this.card1 = response.data.card2
                 }
