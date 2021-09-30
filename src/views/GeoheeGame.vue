@@ -199,10 +199,10 @@ export default {
             this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 1))
                 .then(response => {
                   console.log(response)
-                  this.card1 = response.data
-                  this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 2))
-                      .then(response => {
-                        this.card2 = response.data
+                   // this.$http.get("choose1card/" + this.gameId + "/" + (this.cardcount + 2))
+                   //   .then(response => {
+                        this.card2 = response.data.card1
+                        this.card1 = response.data.card2
 
 
                         // display kaardid ja
@@ -234,7 +234,7 @@ export default {
                         }
 
 
-                      })
+                     // })
                 })
           } //else kinni
         })
