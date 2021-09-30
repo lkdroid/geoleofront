@@ -5,14 +5,14 @@
       <div class="header">
         <div class="headerData">
           <div class="activePlayerWrapper" id="activePlayerWrapper">
-            <p class="activePlayer" id="activePlayer">Ronaldo</p>
-            <p class="activePlayerId" id="activePlayerId">(84954)</p>
+            <p class="activePlayer" id="activePlayer">Mängija nimi:{{ player_name }}</p>
+            <p class="activePlayerId" id="activePlayerId">(Mängija ID:{{ playerId }})</p>
           </div>
           <div class="gameId" id="gameId">
-            <p class="geoheeIdText" id="geoheeIdText">Geohee Game ID:</p>
-            <p class="idNumber" id="idNumber">32465</p>
+            <p class="geoheeIdText" id="geoheeIdText">Mängu ID:</p>
+            <p class="idNumber" id="idNumber">{{ gameId }}</p>
           </div>
-          <p class="opponentPlayer" id="opponentPlayer">Messi</p>
+          <p class="opponentPlayer" id="opponentPlayer">{{  }}</p>
         </div>
       </div>
     </div>
@@ -39,8 +39,9 @@
           </div>
           <div class="countryData">
             <p class="population">Rahvaarv</p>
-            <a class="populationNumber" id="populationNumber" v-on:click="choose('population')"
+            <a class="populationNumber" v-show="mover" v-on:click="choose('population')"
                href="#">{{ card1.population }}</a>
+            <p class="populationNumber" v-show="!mover">{{ card1.population }}</p>
             <p class="area">Pindala</p>
             <a id="area" href="#">
               <div class="areaNumbers">
@@ -67,8 +68,10 @@
         </div>
       </div>
       <div class="interactiveBlock">
-        <p class="whosTurn">SINU KORD <br> Vali suurus!</p>
-        <button v-if="state == 1" type="submit" class="buttons" id="changeCards">Jätka</button>
+        <p class="whosTurn">{{ message1 }}<br>{{ message2 }}</p>
+        <button v-if="state == 1 || state==2" type="submit" v-on:click="continueButton" class="buttons"
+                id="changeCards">JÄTKA
+        </button>
       </div>
 
 
@@ -152,50 +155,79 @@ export default {
       card1: {},
       card2: {},
       pollInterval: {},
-      state: 0
+      state: 0,
+      message1: '',
+      message: ''
     }
   },
   methods: {
 
-     //      this.removeClass = true
+    //      this.removeClass = true
 
+    continueButton: function () {
+
+      this.state=0;
+
+
+      this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
+          .then(response => {
+            console.log(response)
+            if (this.mover) {
+              this.card1 = response.data.card1
+              this.card2 = response.data.card2
+            } else {
+              this.card2 = response.data.card1
+              this.card1 = response.data.card2
+            }
+          })
+
+
+    },
     choose: function (chosenField) {
-      console.log("country choise")
-      if (chosenField == 'population') {
-        console.log("population")
-        if (this.card1.population > this.card2.population) {
-          console.log("hurraa")
-        } else {
-          console.log("jama")
-        }
-      }
+      console.log("input choice done")
+
       this.$http.get("/sendChosenField/" + chosenField + "/" + this.playerId + "/" + this.gameId + "/" + this.cardcount)
           .then(response => {
-
+            console.log(response.data)
+            if (response.data.winner == this.gameId){
+              this.message1 = "Sa küsisid suurust " + response.data.chosenField + " ning SINA VÕITSID!"
+              this.message2="Vajuta nupule JÄTKA"}
+            else {this.message1 = "Sa küsisid suurust " + response.data.chosenField + " ning TEMA VÕITIS!"
+              this.message2 = "Vajuta nupule JÄTKA"}
           })
+      this.mover = !this.mover
+      this.state = 2;
+      this.cardcount = this.cardcount + 2
+
 
     }, pollData: function () {
       this.pollInterval = setInterval(() => {
-        console.log('poll')
+        console.log('polling')
         this.hasPlayerMoved()
-      }, 2000)
+      }, 3000)
     }, hasPlayerMoved: function () {
-      if(this.mover == false){
+      if (this.mover == false) {
         this.$http.get('/checkIfInputYes/' + this.gameId + "/" + this.cardcount)
             .then(response => {
               if (response.data.result === true) {
-                console.log(response);
+                console.log(response.data);
                 console.log("Andmed olemas")
                 this.mover = true;
                 this.state = 1;
-                //siin tekita nüüd jätka nupp
-              }
+                this.cardcount = this.cardcount + 2
+                if (response.data.winner === this.gameId){
+                this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning SINA VÕITSID!"
+                this.message2="Vajuta nupule JÄTKA"}
+                else {this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning TEMA VÕITIS!"
+                this.message2 = "Vajuta nupule JÄTKA"}
+                              }
             })
       }
     }
   },
   mounted() {
     this.pollData();
+
 
     this.cardcount = 1;
     this.player_name = localStorage.playerName,
@@ -204,24 +236,24 @@ export default {
     this.$http.get("/checkwhoisfirst/" + this.gameId + "/" + this.playerId)
         .then(response => {
           this.mover = response.data
-          if (this.mover) {
-            //this.$http.get('/randomcards/' + this.gameID)
-            //.then(response => {
-            this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
-                .then(response => {
-                      console.log(response)
-                      this.card1 = response.data.card1
-                      this.card2 = response.data.card2
-                    }
-                )
-          } else {
-            this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
-                .then(response => {
-                  console.log(response)
+
+
+          this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
+              .then(response => {
+                console.log(response)
+                if (this.mover) {
+                  this.message1 = "Sinu kord! Vali suurus kaardilt!"
+                  this.message2 = ""
+                  this.card1 = response.data.card1
+                  this.card2 = response.data.card2
+                } else {
+                  this.message1 = "Oota vastase käiku!"
+                  this.message2 =""
                   this.card2 = response.data.card1
                   this.card1 = response.data.card2
-                })
-          } //else kinni
+                }
+              })
+
         })
   }
 }
