@@ -12,7 +12,7 @@
               <!-- <input class="form-input" type="text" v-model="player_name" placeholder="Sinu nimi">-->
               <!-- <button v-on:click="enterPlayerName" type="submit" class="form-submit">Start</button>-->
               <input class="form-input" type="text" v-model="player_name" placeholder="Sinu nimi">
-              <button @click="checkName()" type="submit" class="form-submit">Lisa</button>
+              <button @click="checkName" type="submit" class="form-submit">Lisa</button>
             </fieldset>
           </form>
         </div>
@@ -96,6 +96,7 @@ export default {
       this.$http.get("/checkgame/" + this.playerID + "/" + this.gameType)
           .then(response => {
             this.gameID = response.data
+            this.message2 = "Otsin mängu. Oota palun..."
             this.pollReady()
           })
 
@@ -107,6 +108,7 @@ export default {
           .then(response => {
             console.log(response.data)
             this.gameID = response.data
+            this.message2 = "Mäng tehtud. Edasta mängu ID: " + response.data + " Ootame teist mängijat..."
             this.pollReady()
           })
 
@@ -131,10 +133,12 @@ export default {
             if (response.data) {
               this.$http.get("/insertname/" + this.player_name)
                   .then(response => {
+                    this.message2 = "Uus mängija - "+this.player_name+" - kelle ID on : " + response.data + " lisatud, vali nüüd altpoolt mängutüüp."
                     this.playerID = response.data
                   })
             } else {
-
+              console.log(this.hideInput)
+              this.playerID = null
               this.IdMessage = "Sinu ID";
               this.message = "Sellise nimega kasutaja on juba andmebaasis olemas. Sisesta oma ID:";
             }
@@ -154,9 +158,10 @@ export default {
         this.$http.get("/checkNameId/" + this.player_name + "/" + this.playerID)
             .then(response => {
               if (response.data) {
-                this.message2 = "Vali nüüd altpoolt mängutüüp";
+                this.hideInput=false
+                this.message2 = "Õige mängija ID! Vali nüüd altpoolt mängutüüp";
               } else {
-                this.hideInput = true
+                this.hideInput = false
                 this.message2 = "See ei ole õige ID! Sisesta mängijanimi!"
               }
             })
@@ -169,7 +174,7 @@ export default {
             .then(response => {
               if (response.data === true) {
                 console.log(response);
-                console.log("kontroll")
+                console.log("Andmed olemas, salvestan ja liigun järgmisele lehele.")
                 localStorage.playerName = this.player_name
                 localStorage.gameID = this.gameID
                 localStorage.playerID = this.playerID

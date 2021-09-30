@@ -67,7 +67,7 @@
       </div>
       <div class="interactiveBlock">
         <p class="whosTurn">SINU KORD <br> Vali suurus!</p>
-        <button @click="letsFlip" type="submit"  class="buttons" id="changeCards">Jätka</button>
+        <button @click="letsFlip" type="submit" class="buttons" id="changeCards">Jätka</button>
       </div>
 
 
@@ -142,8 +142,14 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: true
-      move:''
+      removeClass: true,
+      player_name: localStorage.playerName,
+      playerId: localStorage.playerID,
+      gameId: localStorage.gameID,
+      mover: '',
+      cardcount: '',
+      country1: '',
+      country2: ''
     }
   },
   methods: {
@@ -157,6 +163,59 @@ export default {
       this.removeClass = !this.removeClass
 
     }
+  },
+
+  mounted() {
+
+    this.cardcount = 0;
+    this.player_name = localStorage.playerName,
+        this.playerId = localStorage.playerID,
+        this.gameId = localStorage.gameID
+    this.$http.get("/checkwhoisfirst/" + this.gameID + "/" + this.playerID)
+        .then(response => {
+          this.mover = response.data
+          if (this.mover) {
+            this.$http.get('/randomcards/' + this.gameID)
+                .then(response => {
+                      this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 1)
+                          .then(response => {
+                                console(response)
+                                this.country1 = response.data
+                                this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 2)
+                                    .then(response => {
+                                      this.country2 = response.data
+
+                                      //display ja oota input
+
+
+                                    })
+
+                              }
+                          )
+
+
+                    }
+                )
+
+
+          }
+          else {
+            this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 1)
+                .then(response => {
+                  console(response)
+                  this.country1 = response.data
+                  this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount + 2)
+                      .then(response => {
+                        this.country2 = response.data
+                      })
+                })
+            //start polling kas real kus on thisgameid ning cardcount+1 on olemas player id
+          }
+        })
+
+
+
+
   }
 }
 </script>
