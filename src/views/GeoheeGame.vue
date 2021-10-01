@@ -22,11 +22,12 @@
         <div class="cardsInnerBorder">
           <div class="cardsTopText">
             <p class="water">vesi</p>
-            <a class="waterNr" id="waterNr" href="#">{{ card1.water }}</a>
+            <a @click="water1" class="waterNr" id="waterNr" href="#">{{ card1.water }}</a>
             <p class="height">kõrgus</p>
             <a class="heightNr" id="heightNr" href="#">{{ card1.avgHeight }}</a>
           </div>
-          <a href="#"><img class="countryFlag" src="pictures/flags/AF.png" alt="cards flag"></a>
+          <a href="#"><img class="countryFlag" v-bind:src="'pictures/flags/' + card1.countryCode + '.png'" alt="cards flag"></a>
+
           <hr class="cardHr">
           <div class="country">
             <a class="countryLink" v-on:click="choose('countryName')" id="country" href="#">{{ card1.countryName }}</a>
@@ -35,7 +36,7 @@
             <a class="capitalLink" v-on:click="choose('capital')" id="capital" href="#">{{ card1.capital }}</a>
           </div>
           <div class="mapsPic">
-            <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
+            <img class="countryMap" v-bind:src="'pictures/maps/' + card1.contourCode + '.png'" alt="cards map">
           </div>
           <div class="countryData">
             <p class="population">Rahvaarv</p>
@@ -77,8 +78,8 @@
       </div>
 
 
-      <div class=" card flip-card" id="flip-card">
-        <div class="flip-card-inner" :class="{ letsFlip: removeClass }" id="flip-card-inner">
+      <div class="card flip-card" id="flip-card">
+        <div class="flip-card-inner" v-bind:class="{ letsFlip: removeClass }" id="flip-card-inner">
           <div class="flip-card-front" id="flip-card-front">
             <img src="pictures/backCard.png" alt="cards back Side" style="width:356px;height:554px">
           </div>
@@ -93,7 +94,7 @@
                 <p class="height">kõrgus</p>
                 <p class="heightNumber" id="opponentHeightNumber">{{ card2.avgHeight }}</p>
               </div>
-              <img class="countryFlag" id="opponentCountryFlag" src="pictures/flags/AF.png" alt="cards flag">
+              <img class="countryFlag" id="opponentCountryFlag" v-bind:src="'pictures/flags/' + card2.countryCode + '.png'" alt="cards flag">
               <hr class="cardHr">
               <div class="country">
                 <p id="opponentCountry">{{ card2.countryName }}</p>
@@ -102,7 +103,7 @@
                 <p id="opponentCapital">{{ card2.capital }}</p>
               </div>
               <div class="mapsPic">
-                <img class="countryMap" src="pictures/maps/AF.png" alt="cards map">
+                <img class="countryMap" v-bind:src="'pictures/maps/' + card2.contourCode + '.png'" alt="cards map">
               </div>
               <div class="countryData">
                 <p class="population">Rahvaarv</p>
@@ -148,7 +149,7 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: false,
+      removeClass: true,
       player_name: localStorage.playerName,
       playerId: localStorage.playerID,
       gameId: localStorage.gameID,

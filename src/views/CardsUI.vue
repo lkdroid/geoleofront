@@ -71,6 +71,7 @@
 
 
 <script>
+
 export default {
   name: 'additionalInputs',
   data: function () {
@@ -87,7 +88,7 @@ export default {
       isJoin: '',
       buttonState: 'new',
       message2: '',
-      temporaryId:''
+      temporaryId: ''
     }
   },
   methods: {
@@ -100,8 +101,6 @@ export default {
             this.message2 = "Otsin mängu. Oota palun..."
             this.pollReady()
           })
-
-
     },
     createFriendGame: function () {
       this.gameType = true
@@ -120,7 +119,7 @@ export default {
       this.buttonState = "join"
       this.IdMessage = "Mängu ID";
       this.message = "Sisesta sõbra mängu ID";
-      this.playerID=''
+      this.playerID = ''
       this.hideInput = true
 
 
@@ -136,7 +135,7 @@ export default {
             if (response.data) {
               this.$http.get("/insertname/" + this.player_name)
                   .then(response => {
-                    this.message2 = "Uus mängija - "+this.player_name+" - kelle ID on : " + response.data + " lisatud, vali nüüd altpoolt mängutüüp."
+                    this.message2 = "Uus mängija - " + this.player_name + " - kelle ID on : " + response.data + " lisatud, vali nüüd altpoolt mängutüüp."
                     this.playerID = response.data
                   })
             } else {
@@ -168,9 +167,9 @@ export default {
         this.$http.get("/checkNameId/" + this.player_name + "/" + this.playerID)
             .then(response => {
               if (response.data) {
-                this.hideInput=false
+                this.hideInput = false
                 this.message2 = "Õige mängija ID! Vali nüüd altpoolt mängutüüp";
-                              } else {
+              } else {
                 this.hideInput = false
                 this.message2 = "See ei ole õige ID! Sisesta mängijanimi!"
               }
