@@ -149,7 +149,7 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: true,
+      removeClass: false,
       player_name: localStorage.playerName,
       playerId: localStorage.playerID,
       gameId: localStorage.gameID,
