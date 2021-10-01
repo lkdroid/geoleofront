@@ -22,12 +22,11 @@
         <div class="cardsInnerBorder">
           <div class="cardsTopText">
             <p class="water">vesi</p>
-            <a @click="water1" class="waterNr" id="waterNr" href="#">{{ card1.water }}</a>
+            <a class="waterNr" id="waterNr" href="#">{{ card1.water }}</a>
             <p class="height">kõrgus</p>
             <a class="heightNr" id="heightNr" href="#">{{ card1.avgHeight }}</a>
           </div>
           <a href="#"><img class="countryFlag" v-bind:src="'pictures/flags/' + card1.countryCode + '.png'" alt="cards flag"></a>
-
           <hr class="cardHr">
           <div class="country">
             <a class="countryLink" v-on:click="choose('countryName')" id="country" href="#">{{ card1.countryName }}</a>
@@ -78,8 +77,8 @@
       </div>
 
 
-      <div class="card flip-card" id="flip-card">
-        <div class="flip-card-inner" v-bind:class="{ letsFlip: removeClass }" id="flip-card-inner">
+      <div class=" card flip-card" id="flip-card">
+        <div class="flip-card-inner" :class="{ letsFlip: removeClass }" id="flip-card-inner">
           <div class="flip-card-front" id="flip-card-front">
             <img src="pictures/backCard.png" alt="cards back Side" style="width:356px;height:554px">
           </div>
@@ -90,7 +89,7 @@
             <div class="cardsInnerBorder">
               <div class="cardsTopText">
                 <p class="water">vesi</p>
-                <p class="waterNumber" id="opponentWaterNumber">{{ card2.water }}</p>
+                <p class="waterNumber" id="opponentWaterNumber  q">{{ card2.water }}</p>
                 <p class="height">kõrgus</p>
                 <p class="heightNumber" id="opponentHeightNumber">{{ card2.avgHeight }}</p>
               </div>
@@ -149,7 +148,7 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: false,
+      removeClass: true,
       player_name: localStorage.playerName,
       playerId: localStorage.playerID,
       gameId: localStorage.gameID,
