@@ -159,7 +159,8 @@ export default {
       pollInterval: {},
       state: 0,
       message1: '',
-      message2: ''
+      message2: '',
+      roundresult:''
     }
   },
   methods: {
@@ -175,9 +176,11 @@ export default {
           .then(response => {
             console.log(response)
             if (this.mover) {
+              this.message1 = "Sinu kord! Vali suurus kaardilt!"
               this.card1 = response.data.card1
               this.card2 = response.data.card2
             } else {
+              this.message1 = "Oota vastase käiku!"
               this.card2 = response.data.card1
               this.card1 = response.data.card2
             }
@@ -187,11 +190,14 @@ export default {
     },
     choose: function (chosenField) {
       console.log("input choice done")
+      if (chosenField == "population") {
+        if (card1.population > card2.population) {this.roundresult="winner"} else {this.roundresult="loser"}
+      }
 
       this.$http.get("/sendChosenField/" + chosenField + "/" + this.playerId + "/" + this.gameId + "/" + this.cardcount)
           .then(response => {
             console.log(response.data)
-            if (response.data.winner == this.gameId) {
+            if (this.roundresult == this.playerId) {
               this.message1 = "Sa küsisid suurust " + response.data.chosenField + " ning SINA VÕITSID!"
               this.message2 = "Vajuta nupule JÄTKA"
             } else {
@@ -219,7 +225,7 @@ export default {
                 this.mover = true;
                 this.state = 1;
                 this.cardcount = this.cardcount + 2
-                if (response.data.winner === this.gameId) {
+                if (response.data.winner === this.playerId) {
                   this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning SINA VÕITSID!"
                   this.message2 = "Vajuta nupule JÄTKA"
                 } else {
@@ -227,7 +233,8 @@ export default {
                   this.message2 = "Vajuta nupule JÄTKA"
                 }
               }
-            })
+
+                          })
       }
     }
   },
