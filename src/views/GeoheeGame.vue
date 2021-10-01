@@ -26,7 +26,8 @@
             <p class="height">kõrgus</p>
             <a class="heightNr" id="heightNr" href="#">{{ card1.avgHeight }}</a>
           </div>
-          <a href="#"><img class="countryFlag" v-bind:src="'pictures/flags/' + card1.countryCode + '.png'" alt="cards flag"></a>
+          <a href="#"><img class="countryFlag" v-bind:src="'pictures/flags/' + card1.countryCode + '.png'"
+                           alt="cards flag"></a>
           <hr class="cardHr">
           <div class="country">
             <a class="countryLink" v-on:click="choose('countryName')" id="country" href="#">{{ card1.countryName }}</a>
@@ -70,9 +71,13 @@
         </div>
       </div>
       <div class="interactiveBlock">
-        <p class="whosTurn">{{ message1 }}<br>{{ message2 }}</p>
+        <p class="whosTurn">{{ message1 }}<br><span v-show="state != 100">{{ message2 }}</span>
+          <span v-show="state == 100">{{ message3 }}</span></p>
         <button v-if="state == 1 || state==2" type="submit" v-on:click="continueButton" class="buttons"
                 id="changeCards">JÄTKA
+        </button>
+        <button v-if="state == 100" type="submit" @click="$router.push('/')" class="buttons"
+                id="endGame">LÕPETA MÄNG
         </button>
       </div>
 
@@ -93,7 +98,8 @@
                 <p class="height">kõrgus</p>
                 <p class="heightNumber" id="opponentHeightNumber">{{ card2.avgHeight }}</p>
               </div>
-              <img class="countryFlag" id="opponentCountryFlag" v-bind:src="'pictures/flags/' + card2.countryCode + '.png'" alt="cards flag">
+              <img class="countryFlag" id="opponentCountryFlag"
+                   v-bind:src="'pictures/flags/' + card2.countryCode + '.png'" alt="cards flag">
               <hr class="cardHr">
               <div class="country">
                 <p id="opponentCountry">{{ card2.countryName }}</p>
@@ -148,7 +154,7 @@ export default {
   name: 'addFlipClass',
   data: function () {
     return {
-      removeClass: true,
+      removeClass: false,
       player_name: localStorage.playerName,
       playerId: localStorage.playerID,
       gameId: localStorage.gameID,
@@ -160,7 +166,10 @@ export default {
       state: 0,
       message1: '',
       message2: '',
-      roundresult:''
+      roundresult: '',
+      mypoints: 0,
+      opoints: 0,
+      message3: ''
     }
   },
   methods: {
@@ -175,6 +184,11 @@ export default {
       this.$http.get("choose1card/" + this.gameId + "/" + this.cardcount)
           .then(response => {
             console.log(response)
+            if (response.data.moreTurns == false) {
+              this.isLastTurn=true
+
+            }
+            this.removeClass = false
             if (this.mover) {
               this.message1 = "Sinu kord! Vali suurus kaardilt!"
               this.card1 = response.data.card1
@@ -189,15 +203,43 @@ export default {
 
     },
     choose: function (chosenField) {
+      this.removeClass = true
       console.log("input choice done")
       if (chosenField == "population") {
-        if (card1.population > card2.population) {this.roundresult="winner"} else {this.roundresult="loser"}
+        if (this.card1.population > this.card2.population) {
+          this.roundresult = "winner"
+          this.mypoints = this.mypoints + 1
+        } else {
+          this.opoints = this.opoints + 1
+          this.roundresult = "loser"
+        }
+
       }
+
+      if (chosenField == "area") {
+        if (this.card1.area > this.card2.area) {
+          this.roundresult = "winner"
+          this.mypoints = this.mypoints + 1
+        } else {
+          this.roundresult = "loser"
+          this.opoints = this.opoints + 1
+        }
+      }
+      if (chosenField == "hdi") {
+        if (this.card1.hdi > this.card2.hdi) {
+          this.roundresult = "winner"
+          this.mypoints = this.mypoints + 1
+        } else {
+          this.roundresult = "loser"
+          this.opoints = this.opoints + 1
+        }
+      }
+
 
       this.$http.get("/sendChosenField/" + chosenField + "/" + this.playerId + "/" + this.gameId + "/" + this.cardcount)
           .then(response => {
             console.log(response.data)
-            if (this.roundresult == this.playerId) {
+            if (this.roundresult == "winner") {
               this.message1 = "Sa küsisid suurust " + response.data.chosenField + " ning SINA VÕITSID!"
               this.message2 = "Vajuta nupule JÄTKA"
             } else {
@@ -206,7 +248,17 @@ export default {
             }
           })
       this.mover = !this.mover
-      this.state = 2;
+      if (this.isLastTurn) {this.state=100
+        this.message1 = "Riigid on otsas ja mäng on läbi!"
+        if (this.mypoints > this.opoints) {
+          this.message3 = "SINU VÕIT! Sa kogusid " + this.mypoints + " punkti! Vastasmängija kogus " + this.opoints + " punkti.";
+
+        } else {
+          this.message3 = "KAOTASID! Sa kogusid " + this.mypoints + " punkti! Vastasmängija kogus " + this.opoints + " punkti."
+        }
+
+      } else {
+      this.state = 2;}
       this.cardcount = this.cardcount + 2
 
 
@@ -222,10 +274,43 @@ export default {
               if (response.data.result === true) {
                 console.log(response.data);
                 console.log("Andmed olemas")
+
                 this.mover = true;
                 this.state = 1;
                 this.cardcount = this.cardcount + 2
-                if (response.data.winner === this.playerId) {
+                this.removeClass = true
+
+                if (response.data.chosenField == "population") {
+                  if (this.card1.population > this.card2.population) {
+                    this.roundresult = "winner"
+                    this.mypoints = this.mypoints + 1
+                  } else {
+                    this.opoints = this.opoints + 1
+                    this.roundresult = "loser"
+                  }
+
+                }
+
+                if (response.data.chosenField == "area") {
+                  if (this.card1.area > this.card2.area) {
+                    this.roundresult = "winner"
+                    this.mypoints = this.mypoints + 1
+                  } else {
+                    this.roundresult = "loser"
+                    this.opoints = this.opoints + 1
+                  }
+                }
+                if (response.data.chosenField == "hdi") {
+                  if (this.card1.hdi > this.card2.hdi) {
+                    this.roundresult = "winner"
+                    this.mypoints = this.mypoints + 1
+                  } else {
+                    this.roundresult = "loser"
+                    this.opoints = this.opoints + 1
+                  }
+                }
+
+                if (this.roundresult == "winner") {
                   this.message1 = "Vastane küsis suurust " + response.data.chosenField + " ning SINA VÕITSID!"
                   this.message2 = "Vajuta nupule JÄTKA"
                 } else {
@@ -234,7 +319,7 @@ export default {
                 }
               }
 
-                          })
+            })
       }
     }
   },
