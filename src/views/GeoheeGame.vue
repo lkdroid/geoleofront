@@ -319,7 +319,20 @@ export default {
                 }
               }
 
+
             })
+        .then (response => {
+        if (this.isLastTurn) {this.state=100
+          this.message1 = "Riigid on otsas ja mäng on läbi!"
+          if (this.mypoints > this.opoints) {
+            this.message3 = "SINU VÕIT! Sa kogusid " + this.mypoints + " punkti! Vastasmängija kogus " + this.opoints + " punkti.";
+
+          } else {
+            this.message3 = "KAOTASID! Sa kogusid " + this.mypoints + " punkti! Vastasmängija kogus " + this.opoints + " punkti."
+          }
+
+        }}
+        )
       }
     }
   },
